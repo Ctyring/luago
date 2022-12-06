@@ -47,7 +47,7 @@ func printCode(f *binchunk.Prototype) {
 	for pc, c := range f.Code {
 		line := "-"
 		if len(f.LineInfo) > 0 {
-			line = fmt.Sprint("%d", f.LineInfo[pc])
+			line = fmt.Sprintf("%d", f.LineInfo[pc])
 		}
 		fmt.Printf("\t%d\t[%s]\t0x%08X\n", pc+1, line, c)
 	}
