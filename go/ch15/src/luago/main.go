@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"go/ch15/src/luago/api"
-	"go/ch15/src/luago/compiler"
+	"go/ch15/src/luago/compiler/lexer"
 	"os"
 )
 
@@ -18,11 +18,11 @@ func main() {
 }
 
 func testLexer(chunk, chunkName string) {
-	lexer := compiler.NewLexer(chunk, chunkName)
+	lexer := lexer.NewLexer(chunk, chunkName)
 	for {
 		line, kind, token := lexer.NextToken()
 		fmt.Printf("[%2d] %-10s %s\n", line, kindToCategory(kind), token)
-		if kind == compiler.TOKEN_EOF {
+		if kind == lexer.TOKEN_EOF {
 			break
 		}
 	}
@@ -30,19 +30,19 @@ func testLexer(chunk, chunkName string) {
 
 func kindToCategory(kind int) string {
 	switch {
-	case kind < compiler.TOKEN_SEP_SEMI:
+	case kind < lexer.TOKEN_SEP_SEMI:
 		return "other"
-	case kind <= compiler.TOKEN_SEP_RCURLY:
+	case kind <= lexer.TOKEN_SEP_RCURLY:
 		return "separator"
-	case kind <= compiler.TOKEN_OP_NOT:
+	case kind <= lexer.TOKEN_OP_NOT:
 		return "operator"
-	case kind <= compiler.TOKEN_KW_WHILE:
+	case kind <= lexer.TOKEN_KW_WHILE:
 		return "keyword"
-	case kind == compiler.TOKEN_IDENTIFIER:
+	case kind == lexer.TOKEN_IDENTIFIER:
 		return "identifier"
-	case kind == compiler.TOKEN_NUMBER:
+	case kind == lexer.TOKEN_NUMBER:
 		return "number"
-	case kind == compiler.TOKEN_STRING:
+	case kind == lexer.TOKEN_STRING:
 		return "string"
 	default:
 		return "other"

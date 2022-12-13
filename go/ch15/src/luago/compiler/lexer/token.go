@@ -1,4 +1,4 @@
-package compiler
+package lexer
 
 const (
 	TOKEN_EOF         = iota           // end-of-file
